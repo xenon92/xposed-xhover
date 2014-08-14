@@ -1,0 +1,1 @@
+include ':app', ':XposedBridgeApi-54', ':systembartint-1.0.4'

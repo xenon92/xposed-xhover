@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('XposedBridgeApi-54.jar'))

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App info -->
+
+    <string name="app_name">xHover</string>
+    <string name="app_copyright">
+        Copyright © 2014 Shubhang Rathore
+        \nGoogle+: http://google.com/+ShubhangRathore
+        \nGithub: https://github.com/xenon92
+        \nWebsite: http://shubhangrathore.com</string>
+
+    <string name="app_version_text">Version</string>
+
+
+    <!-- App details -->
+
+    <string name="category_app_details">xHover</string>
+
+    <string name="source">Source</string>
+    <string name="source_summary">Go through the source code of the app</string>
+
+    <string name="developer">Developer</string>
+    <string name="developer_summary">
+        Shubhang Rathore
+        \nVisit developer\'s website</string>
+
+    <string name="changelog">Changelog</string>
+    <string name="changelog_summary">See the changelog for the app</string>
+
+    <string name="read_more">Read more</string>
+    <string name="read_more_summary">Know more about XHover</string>
+
+
+    <!-- GUI strings -->
+    <string name="category_time_delays">time delays</string>
+    <string name="reset_all">Reset all</string>
+    <string name="reset_all_summary">Reset all settings to stock ParanoidAndroid values</string>
+
+
+    <!-- Hover micro fade out delays -->
+    <string name="evade_notification">Evade notification</string>
+    <string name="evade_notification_summary">
+        Time duration for Hover notification to stay on screen
+        after a touch outside the notification view
+    </string>
+
+    <string name="micro_fade_out_delay_0_75_seconds">0.75 seconds</string>
+    <string name="micro_fade_out_delay_1_25_seconds">1.25 seconds</string>
+    <string name="micro_fade_out_delay_1_75_seconds">1.75 seconds</string>
+    <string name="micro_fade_out_delay_2_25_seconds">2.25 seconds</string>
+    <string name="micro_fade_out_delay_2_75_seconds">2.75 seconds</string>
+
+
+
+    <!-- Hover short fade out delays -->
+    <string name="notification_waiting">Notification waiting</string>
+    <string name="notification_waiting_summary">
+        Time duration for current Hover notification to stay on screen
+        if there is another notification waiting to be shown
+    </string>
+
+    <string name="short_fade_out_delay_1_5_seconds">1.5 seconds</string>
+    <string name="short_fade_out_delay_2_0_seconds">2 seconds</string>
+    <string name="short_fade_out_delay_2_5_seconds">2.5 seconds</string>
+    <string name="short_fade_out_delay_3_0_seconds">3 seconds</string>
+    <string name="short_fade_out_delay_3_5_seconds">3.5 seconds</string>
+    <string name="short_fade_out_delay_4_0_seconds">4 seconds</string>
+
+
+
+    <!-- Hover long fade out delays -->
+    <string name="natural_timeout">Natural timeout</string>
+    <string name="natural_timeout_summary">
+        Time duration for Hover notification to stay on screen
+        if there is no interaction with the device</string>
+
+    <string name="long_fade_out_delay_3_seconds">3 seconds</string>
+    <string name="long_fade_out_delay_4_seconds">4 seconds</string>
+    <string name="long_fade_out_delay_5_seconds">5 seconds</string>
+    <string name="long_fade_out_delay_6_seconds">6 seconds</string>
+    <string name="long_fade_out_delay_7_seconds">7 seconds</string>
+    <string name="long_fade_out_delay_8_seconds">8 seconds</string>
+    <string name="long_fade_out_delay_9_seconds">9 seconds</string>
+    <string name="long_fade_out_delay_10_seconds">10 seconds</string>
+
+
+</resources>

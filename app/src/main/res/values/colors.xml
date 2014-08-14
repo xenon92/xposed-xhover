@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="material_pink">#F50057</color>
+    <color name="material_pink_light">#FCE4EC</color>
+    <color name="material_indigo">#3F51B5</color>
+    <color name="material_indigo_light">#E8EAF6</color>
+    <color name="material_indigo_dark">#303F9F</color>
+    <color name="material_green">#259B24</color>
+    <color name="material_yellow">#ffeb3b</color>
+    <color name="yellow">#ffff00</color>
+    <color name="material_orange">#ff9800</color>
+    <color name="material_amber">#ffc107</color>
+</resources>

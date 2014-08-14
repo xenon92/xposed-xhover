@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- App introduction -->
+
+    <PreferenceScreen
+        android:selectable="false"
+        android:summary="@string/app_copyright"
+        android:title="@string/app_name" />
+
+    <PreferenceScreen
+        android:key="app_version_name_preference"
+        android:selectable="false"
+        android:title="@string/app_version_text" />
+
+
+    <!-- xHover settings -->
+
+    <PreferenceCategory android:title="@string/category_time_delays" />
+
+    <!-- Hover long fade out delay -->
+    <ListPreference
+        android:defaultValue="5000"
+        android:entries="@array/long_face_out_delay_entries"
+        android:entryValues="@array/long_fade_out_delay_values"
+        android:key="long_fade_out_delay"
+        android:summary="@string/natural_timeout_summary"
+        android:title="@string/natural_timeout" />
+
+    <!-- Hover short fade out delay -->
+    <ListPreference
+        android:defaultValue="2500"
+        android:entries="@array/short_fade_out_delay_entries"
+        android:entryValues="@array/short_fade_out_delay_values"
+        android:key="short_fade_out_delay"
+        android:summary="@string/notification_waiting_summary"
+        android:title="@string/notification_waiting" />
+
+    <!-- Hover micro fade out delay -->
+    <ListPreference
+        android:defaultValue="1250"
+        android:entries="@array/micro_fade_out_delay_entries"
+        android:entryValues="@array/micro_fade_out_delay_values"
+        android:key="micro_fade_out_delay"
+        android:summary="@string/evade_notification_summary"
+        android:title="@string/evade_notification" />
+
+
+    <!-- Reset all preferences to stock ParanoidAndroid values -->
+    <PreferenceScreen
+        android:summary="@string/reset_all_summary"
+        android:title="@string/reset_all" />
+
+
+    <!-- App details -->
+
+    <PreferenceCategory android:title="@string/category_app_details" />
+
+    <PreferenceScreen
+        android:key="developer_preference"
+        android:summary="@string/developer_summary"
+        android:title="@string/developer" />
+
+    <PreferenceScreen
+        android:key="app_source_preference"
+        android:summary="@string/source_summary"
+        android:title="@string/source" />
+
+    <PreferenceScreen
+        android:key="changelog_preference"
+        android:summary="@string/changelog_summary"
+        android:title="@string/changelog" />
+
+    <PreferenceScreen
+        android:key="read_more_preference"
+        android:summary="@string/read_more_summary"
+        android:title="@string/read_more" />
+
+</PreferenceScreen>
