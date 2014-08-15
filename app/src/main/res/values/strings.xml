@@ -36,6 +36,13 @@
     <string name="category_time_delays">time delays</string>
     <string name="reset_all">Reset all</string>
     <string name="reset_all_summary">Reset all settings to stock ParanoidAndroid values</string>
+    <string name="reset_all_confirmation_message">
+        Are you sure you want to reset all settings
+        to stock Paranoid Android values?</string>
+    <string name="stock_values_restored">Stock values restored</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
     <!-- Hover micro fade out delays -->

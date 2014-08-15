@@ -49,6 +49,7 @@
 
     <!-- Reset all preferences to stock ParanoidAndroid values -->
     <PreferenceScreen
+        android:key="reset_all"
         android:summary="@string/reset_all_summary"
         android:title="@string/reset_all" />
 
