@@ -19,6 +19,8 @@ public class XposedHover implements IXposedHookLoadPackage {
     private static String sCallingMethod = "";
 
     private int mMicroFadeOutDelay;            // Evade notification time delay
+    private int mShortFadeOutDelay;            // Notification waiting time delay
+    private int mLongFadeOutDelay;             // Natural timeout delay
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
@@ -29,7 +31,17 @@ public class XposedHover implements IXposedHookLoadPackage {
 
         XSharedPreferences mXSharedPreferences = new XSharedPreferences(PACKAGE_XHOVER);
 
-        mMicroFadeOutDelay = Integer.parseInt(mXSharedPreferences.getString(MainActivity.PREF_MICRO_FADE_OUT_DELAY, "1250"));
+        mMicroFadeOutDelay =
+                Integer.parseInt(mXSharedPreferences
+                        .getString(MainActivity.PREF_MICRO_FADE_OUT_DELAY, "1250"));
+
+        mShortFadeOutDelay =
+                Integer.parseInt(mXSharedPreferences
+                        .getString(MainActivity.PREF_SHORT_FADE_OUT_DELAY, "2500"));
+
+        mLongFadeOutDelay =
+                Integer.parseInt(mXSharedPreferences
+                        .getString(MainActivity.PREF_LONG_FADE_OUT_DELAY, "2500"));
 
         final Class<?> mHoverClass = XposedHelpers.findClass(CLASS_HOVER, loadPackageParam.classLoader);
 
@@ -59,6 +71,55 @@ public class XposedHover implements IXposedHookLoadPackage {
             }
         });
 
+
+        /*
+        //
+        // startShortHideCountdown method is an unused method in Hover.java
+        //
+        // Hooking method startShortHideCountdown() that calls method startHideCountdown(int)
+        // providing the later method with the time delay for which Hover notification
+        // will stay on screen if another notification is waiting to be shown
+        // This is the 'Notification waiting' time delay.
+        XposedHelpers.findAndHookMethod(mHoverClass, "startShortHideCountdown", new XC_MethodHook() {
+
+            @Override
+            protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+
+                XposedBridge.log("Calling method = startShortHideCountdown()");
+                sCallingMethod = "startShortHideCountdown";
+            }
+
+            @Override
+            protected void afterHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+                sCallingMethod = "";
+            }
+        });
+        */
+
+
+        // Hooking method startLongHideCountdown() that calls method startHideCountdown(int)
+        // providing the later method with the time delay for which Hover notification
+        // will stay on screen if there is no interaction with the device
+        // This is the 'Natural timeout' delay.
+        XposedHelpers.findAndHookMethod(mHoverClass, "startLongHideCountdown", new XC_MethodHook() {
+
+            @Override
+            protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+
+                XposedBridge.log("Calling method = startLongHideCountdown()");
+                sCallingMethod = "startLongHideCountdown";
+            }
+
+            @Override
+            protected void afterHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+                sCallingMethod = "";
+            }
+        });
+
+
+        // Hooking to method startHideCountdown(int) that starts
+        // a countdown timer taking an int argument as the time duration
+        // of the countdown.
         XposedHelpers.findAndHookMethod(mHoverClass, "startHideCountdown", int.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
@@ -68,9 +129,36 @@ public class XposedHover implements IXposedHookLoadPackage {
                     // Detected that startMicroHideCountdown() method called
                     // startHideCountdown(int) method.
                     // Overriding 'Evade notification' values here.
-                    XposedBridge.log("Setting startHideCountdown delay to: " + String.valueOf(mMicroFadeOutDelay));
+                    XposedBridge.log("Setting startHideCountdown delay to: "
+                            + String.valueOf(mMicroFadeOutDelay));
+
                     methodHookParam.args[0] = mMicroFadeOutDelay;
-                }
+
+                /*
+
+                // startShortHideCountdown method is an unused method in Hover.java
+
+                } else if (sCallingMethod.equals("startShortHideCountdown")) {
+
+                    // Detected that startShortHideCountdown() method called
+                    // startHideCountdown(int) method.
+                    // Overriding 'Notification waiting' values here.
+                    XposedBridge.log("Setting startHideCountdown delay to: "
+                            + String.valueOf(mShortFadeOutDelay));
+
+                    methodHookParam.args[0] = mShortFadeOutDelay;
+                */
+
+                } else if (sCallingMethod.equals("startLongHideCountdown")) {
+
+                // Detected that startLongHideCountdown() method called
+                // startHideCountdown(int) method.
+                // Overriding 'Natural timeout' values here.
+                XposedBridge.log("Setting startHideCountdown delay to: "
+                        + String.valueOf(mLongFadeOutDelay));
+
+                methodHookParam.args[0] = mLongFadeOutDelay;
+            }
             }
         });
     }

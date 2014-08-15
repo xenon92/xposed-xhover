@@ -18,8 +18,8 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 public class MainActivity extends PreferenceActivity {
 
     public static final String PREF_MICRO_FADE_OUT_DELAY = "micro_fade_out_delay";
-    private static final String PREF_LONG_FADE_OUT_DELAY = "long_fade_out_delay";
-    private static final String PREF_SHORT_FADE_OUT_DELAY = "short_fade_out_delay";
+    public static final String PREF_LONG_FADE_OUT_DELAY = "long_fade_out_delay";
+    public static final String PREF_SHORT_FADE_OUT_DELAY = "short_fade_out_delay";
     private static final String PREF_RESET_ALL = "reset_all";
     private static final String PREF_VERSION = "app_version_name";
 
