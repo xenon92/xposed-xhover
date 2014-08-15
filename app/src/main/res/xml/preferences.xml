@@ -10,7 +10,7 @@
         android:title="@string/app_name" />
 
     <PreferenceScreen
-        android:key="app_version_name_preference"
+        android:key="app_version_name"
         android:selectable="false"
         android:title="@string/app_version_text" />
 

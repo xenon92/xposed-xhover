@@ -3,6 +3,7 @@ package com.shubhangrathore.xposed.xhover;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -20,11 +21,15 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
     private static final String PREF_SHORT_FADE_OUT_DELAY = "short_fade_out_delay";
     private static final String PREF_MICRO_FADE_OUT_DELAY = "micro_fade_out_delay";
     private static final String PREF_RESET_ALL = "reset_all";
+    private static final String PREF_VERSION = "app_version_name";
+
+    public static String mVersionName;
 
     private ListPreference mLongFadeOutDelay;             // Natural timeout preference
     private ListPreference mShortFadeOutDelay;            // Notification waiting preference
     private ListPreference mMicroFadeOutDelay;            // Evade notification preference
     private Preference mResetAll;
+    private Preference mVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,9 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
 
         mLongFadeOutDelay = (ListPreference) findPreference(PREF_LONG_FADE_OUT_DELAY);
         mLongFadeOutDelay.setOnPreferenceChangeListener(this);
+
+        mVersion = findPreference(PREF_VERSION);
+        setVersionNameInGui();
 
         mResetAll = findPreference(PREF_RESET_ALL);
     }
@@ -105,5 +113,14 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
         mLongFadeOutDelay.setValue("5000");
         mShortFadeOutDelay.setValue("2500");
         mMicroFadeOutDelay.setValue("1250");
+    }
+
+    private void setVersionNameInGui() {
+        try {
+            mVersionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            mVersion.setSummary(mVersionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            // TODO: add logging
+        }
     }
 }
