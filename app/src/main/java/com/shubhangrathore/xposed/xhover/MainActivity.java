@@ -23,7 +23,7 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
     private static final String PREF_RESET_ALL = "reset_all";
     private static final String PREF_VERSION = "app_version_name";
 
-    public static String mVersionName;
+    public static String sVersionName;
 
     private ListPreference mLongFadeOutDelay;             // Natural timeout preference
     private ListPreference mShortFadeOutDelay;            // Notification waiting preference
@@ -117,8 +117,8 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
 
     private void setVersionNameInGui() {
         try {
-            mVersionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-            mVersion.setSummary(mVersionName);
+            sVersionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            mVersion.setSummary(sVersionName);
         } catch (PackageManager.NameNotFoundException e) {
             // TODO: add logging
         }
