@@ -1,1 +1,1 @@
-include ':app', ':XposedBridgeApi-54', ':systembartint-1.0.4'
+include ':app', ':systembartint-1.0.4'

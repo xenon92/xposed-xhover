@@ -19,6 +19,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    provided project(':XposedBridgeApi-54')
+    provided files ('src/main/lib/XposedBridgeApi-54.jar')
     compile project(':systembartint-1.0.4')
 }
