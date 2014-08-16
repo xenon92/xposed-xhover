@@ -1,9 +1,10 @@
 package com.shubhangrathore.xposed.xhover;
 
+import android.util.Log;
+
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
@@ -11,6 +12,8 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
  * Created by Shubhang on 14/8/2014.
  */
 public class XposedHover implements IXposedHookLoadPackage {
+
+    private static final String TAG = "XposedHover";
 
     private static final String CLASS_HOVER = "com.android.systemui.statusbar.notification.Hover";
     private static final String PACKAGE_XHOVER = XposedHover.class.getPackage().getName();
@@ -59,8 +62,8 @@ public class XposedHover implements IXposedHookLoadPackage {
                 // startHideCountdown(int) method to determine the method name
                 // that called it. This helps overriding the 'int' time delay parameter
                 // according to the method that called startHideCountdown(int).
-                XposedBridge.log("Calling method = startMicroHideCountdown()");
                 sCallingMethod = "startMicroHideCountdown";
+                Log.d(TAG, "Calling method: " + sCallingMethod);
             }
 
             @Override
@@ -68,6 +71,7 @@ public class XposedHover implements IXposedHookLoadPackage {
 
                 // Resetting the flag after the countdown methods have executed
                 // completely so as to prevent overriding wrong sCallingMethod detection
+                Log.d(TAG, "Calling method reset after: " + sCallingMethod);
                 sCallingMethod = "";
             }
         });
@@ -85,13 +89,13 @@ public class XposedHover implements IXposedHookLoadPackage {
 
             @Override
             protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-
-                XposedBridge.log("Calling method = startShortHideCountdown()");
                 sCallingMethod = "startShortHideCountdown";
+                Log.d(TAG, "Calling method: " + sCallingMethod);
             }
 
             @Override
             protected void afterHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+                Log.d(TAG, "Calling method reset after: " + sCallingMethod);
                 sCallingMethod = "";
             }
         });
@@ -106,13 +110,13 @@ public class XposedHover implements IXposedHookLoadPackage {
 
             @Override
             protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-
-                XposedBridge.log("Calling method = startLongHideCountdown()");
                 sCallingMethod = "startLongHideCountdown";
+                Log.d(TAG, "Calling method: " + sCallingMethod);
             }
 
             @Override
             protected void afterHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+                Log.d(TAG, "Calling method reset after: " + sCallingMethod);
                 sCallingMethod = "";
             }
         });
@@ -130,7 +134,7 @@ public class XposedHover implements IXposedHookLoadPackage {
                     // Detected that startMicroHideCountdown() method called
                     // startHideCountdown(int) method.
                     // Overriding 'Evade notification' values here.
-                    XposedBridge.log("Setting startHideCountdown delay to: "
+                    Log.d(TAG, "Setting startHideCountdown delay to: "
                             + String.valueOf(mMicroFadeOutDelay));
 
                     methodHookParam.args[0] = mMicroFadeOutDelay;
@@ -144,7 +148,7 @@ public class XposedHover implements IXposedHookLoadPackage {
                     // Detected that startShortHideCountdown() method called
                     // startHideCountdown(int) method.
                     // Overriding 'Notification waiting' values here.
-                    XposedBridge.log("Setting startHideCountdown delay to: "
+                    Log.d(TAG, "Setting startHideCountdown delay to: "
                             + String.valueOf(mShortFadeOutDelay));
 
                     methodHookParam.args[0] = mShortFadeOutDelay;
@@ -155,7 +159,7 @@ public class XposedHover implements IXposedHookLoadPackage {
                     // Detected that startLongHideCountdown() method called
                     // startHideCountdown(int) method.
                     // Overriding 'Natural timeout' values here.
-                    XposedBridge.log("Setting startHideCountdown delay to: "
+                    Log.d(TAG, "Setting startHideCountdown delay to: "
                             + String.valueOf(mLongFadeOutDelay));
 
                     methodHookParam.args[0] = mLongFadeOutDelay;
@@ -176,16 +180,15 @@ public class XposedHover implements IXposedHookLoadPackage {
         XposedHelpers.findAndHookMethod(mHoverClass, "processOverridingQueue", boolean.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-
-                XposedBridge.log("Calling method = processOverridingQueue()");
                 sCallingMethod = "processOverridingQueue";
+                Log.d(TAG, "Calling method: " + sCallingMethod);
 
                 // sExpanded stores the value of the boolean argument "expanded" which is passed
                 // to processOverridingQueue(boolean). This denoted if the current notification
                 // view being processed is expanded notification or not.
                 sExpanded = Boolean.parseBoolean(String.valueOf(methodHookParam.args[0]));
-                XposedBridge.log("Notification is expanded before " +
-                        "processOverridingQueue() call = " + sExpanded);
+                Log.d(TAG, "Notification is expanded before: " + sCallingMethod +
+                        " call: " + sExpanded);
             }
 
             @Override
@@ -194,6 +197,7 @@ public class XposedHover implements IXposedHookLoadPackage {
                 // Resetting flags after processOverridingQueue method has executed
                 // completely so as to prevent overriding wrong sCallingMethod detection
                 // and wrong notification expanded state
+                Log.d(TAG, "Calling method and sExpanded reset after: " + sCallingMethod);
                 sCallingMethod = "";
                 sExpanded = false;
             }
@@ -213,16 +217,16 @@ public class XposedHover implements IXposedHookLoadPackage {
                         // If here, it means that there are more than one notifications
                         // in queue and the notification currently being shown is expanded.
                         // Therefore, using mLongFadeOutDelay for current notification in Hover.
-                        XposedBridge.log("startOverrideCountdown delay override " +
-                                "- EXPANDED = " + mLongFadeOutDelay);
+                        Log.d(TAG, "startOverrideCountdown delay override " +
+                                "- EXPANDED: " + mLongFadeOutDelay);
                         methodHookParam.args[0] = mLongFadeOutDelay;
                     } else {
 
                         //If here, it means that there are more than one notifications
                         // in queue and the notification currently being shown is not expanded.
                         // Therefore, using mShortFadeOutDelay for current notification in Hover.
-                        XposedBridge.log("startOverrideCountdown delay override " +
-                                "- NOT EXPANDED = " + mShortFadeOutDelay);
+                        Log.d(TAG, "startOverrideCountdown delay override " +
+                                "- NOT EXPANDED: " + mShortFadeOutDelay);
                         methodHookParam.args[0] = mShortFadeOutDelay;
                     }
                 }
