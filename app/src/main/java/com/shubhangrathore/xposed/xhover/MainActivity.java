@@ -123,12 +123,18 @@ public class MainActivity extends PreferenceActivity {
                 .show();
     }
 
+    /**
+     * Reset all settings to the default values as provided by Paranoid Android
+     */
     private void resetAllPreferences() {
         mLongFadeOutDelay.setValue("5000");
         mShortFadeOutDelay.setValue("2500");
         mMicroFadeOutDelay.setValue("1250");
     }
 
+    /**
+     * Sets the app version name of xHover in the GUI in "Version" preference summary
+     */
     private void setVersionNameInGui() {
         try {
             sVersionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
