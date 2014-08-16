@@ -12,12 +12,15 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 
 public class MainActivity extends PreferenceActivity {
+
+    private static final String TAG = "xHover";
 
     public static final String PREF_MICRO_FADE_OUT_DELAY = "micro_fade_out_delay";
     public static final String PREF_LONG_FADE_OUT_DELAY = "long_fade_out_delay";
@@ -127,6 +130,7 @@ public class MainActivity extends PreferenceActivity {
      * Reset all settings to the default values as provided by Paranoid Android
      */
     private void resetAllPreferences() {
+        Log.i(TAG, "Reset all preferences to stock Paranoid Android values");
         mLongFadeOutDelay.setValue("5000");
         mShortFadeOutDelay.setValue("2500");
         mMicroFadeOutDelay.setValue("1250");
@@ -140,7 +144,7 @@ public class MainActivity extends PreferenceActivity {
             sVersionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             mVersion.setSummary(sVersionName);
         } catch (PackageManager.NameNotFoundException e) {
-            // TODO: add logging
+            Log.e(TAG, "Unable to get xHover package versionName");
         }
     }
 
@@ -153,6 +157,6 @@ public class MainActivity extends PreferenceActivity {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse(link));
         startActivity(browserIntent);
-        //TODO: add logging of the link being opened
+        Log.i(TAG, "Opening link = " + link);
     }
 }
