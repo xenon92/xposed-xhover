@@ -26,11 +26,13 @@ public class MainActivity extends PreferenceActivity {
     private static final String PREF_CHANGELOG = "changelog_preference";
     private static final String PREF_DEVELOPER = "developer_preference";
     private static final String PREF_RESET_ALL = "reset_all";
+    private static final String PREF_SOURCE_CODE = "app_source_preference";
     private static final String PREF_VERSION = "app_version_name";
 
     private static final String ABOUT_XHOVER_BLOG_LINK = "http://blog.shubhangrathore.com/xhover/";
     private static final String CHANGELOG_LINK = "https://github.com/xenon92/xposed-xhover/blob/master/CHANGELOG.md";
     private static final String DEVELOPER_WEBSITE_LINK = "http://shubhangrathore.com";
+    private static final String SOURCE_CODE_LINK = "https://www.github.com/xenon92/xposed-xhover";
 
     public static String sVersionName;
 
@@ -42,6 +44,7 @@ public class MainActivity extends PreferenceActivity {
     private Preference mAbout;
     private Preference mChangelog;
     private Preference mDeveloper;
+    private Preference mSourceCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,7 @@ public class MainActivity extends PreferenceActivity {
         mAbout = findPreference(PREF_ABOUT);
         mChangelog = findPreference(PREF_CHANGELOG);
         mDeveloper = findPreference(PREF_DEVELOPER);
+        mSourceCode = findPreference(PREF_SOURCE_CODE);
     }
 
 
@@ -91,6 +95,8 @@ public class MainActivity extends PreferenceActivity {
             openLink(DEVELOPER_WEBSITE_LINK);
         } else if (preference == mChangelog) {
             openLink(CHANGELOG_LINK);
+        } else if (preference == mSourceCode) {
+            openLink(SOURCE_CODE_LINK);
         }
         return false;
     }
