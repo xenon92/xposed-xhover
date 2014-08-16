@@ -23,10 +23,12 @@ public class MainActivity extends PreferenceActivity {
     public static final String PREF_LONG_FADE_OUT_DELAY = "long_fade_out_delay";
     public static final String PREF_SHORT_FADE_OUT_DELAY = "short_fade_out_delay";
     private static final String PREF_ABOUT = "about_preference";
+    private static final String PREF_DEVELOPER = "developer_preference";
     private static final String PREF_RESET_ALL = "reset_all";
     private static final String PREF_VERSION = "app_version_name";
 
     private static final String ABOUT_XHOVER_BLOG_LINK = "http://blog.shubhangrathore.com/xhover/";
+    private static final String DEVELOPER_WEBSITE_LINK = "http://shubhangrathore.com";
 
     public static String sVersionName;
 
@@ -36,6 +38,7 @@ public class MainActivity extends PreferenceActivity {
     private Preference mResetAll;
     private Preference mVersion;
     private Preference mAbout;
+    private Preference mDeveloper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,7 @@ public class MainActivity extends PreferenceActivity {
 
         mResetAll = findPreference(PREF_RESET_ALL);
         mAbout = findPreference(PREF_ABOUT);
+        mDeveloper = findPreference(PREF_DEVELOPER);
     }
 
 
@@ -79,6 +83,8 @@ public class MainActivity extends PreferenceActivity {
             resetConfirmation();
         } else if (preference == mAbout) {
             openLink(ABOUT_XHOVER_BLOG_LINK);
+        } else if (preference == mDeveloper) {
+            openLink(DEVELOPER_WEBSITE_LINK);
         }
         return false;
     }
