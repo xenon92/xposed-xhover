@@ -3,8 +3,10 @@ package com.shubhangrathore.xposed.xhover;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -20,8 +22,11 @@ public class MainActivity extends PreferenceActivity {
     public static final String PREF_MICRO_FADE_OUT_DELAY = "micro_fade_out_delay";
     public static final String PREF_LONG_FADE_OUT_DELAY = "long_fade_out_delay";
     public static final String PREF_SHORT_FADE_OUT_DELAY = "short_fade_out_delay";
+    private static final String PREF_ABOUT = "about_preference";
     private static final String PREF_RESET_ALL = "reset_all";
     private static final String PREF_VERSION = "app_version_name";
+
+    private static final String ABOUT_XHOVER_BLOG_LINK = "http://blog.shubhangrathore.com/xhover/";
 
     public static String sVersionName;
 
@@ -30,6 +35,7 @@ public class MainActivity extends PreferenceActivity {
     private ListPreference mMicroFadeOutDelay;            // Evade notification preference
     private Preference mResetAll;
     private Preference mVersion;
+    private Preference mAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,7 @@ public class MainActivity extends PreferenceActivity {
         setVersionNameInGui();
 
         mResetAll = findPreference(PREF_RESET_ALL);
+        mAbout = findPreference(PREF_ABOUT);
     }
 
 
@@ -70,6 +77,8 @@ public class MainActivity extends PreferenceActivity {
 
         if (preference == mResetAll) {
             resetConfirmation();
+        } else if (preference == mAbout) {
+            openLink(ABOUT_XHOVER_BLOG_LINK);
         }
         return false;
     }
@@ -109,5 +118,17 @@ public class MainActivity extends PreferenceActivity {
         } catch (PackageManager.NameNotFoundException e) {
             // TODO: add logging
         }
+    }
+
+    /**
+     * Open web links by parsing the URI of the parameter link
+     *
+     * @param link the link to be parsed to open
+     */
+    private void openLink(String link) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(link));
+        startActivity(browserIntent);
+        //TODO: add logging of the link being opened
     }
 }
