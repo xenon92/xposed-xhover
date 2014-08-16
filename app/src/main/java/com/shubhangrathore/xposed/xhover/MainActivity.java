@@ -71,9 +71,7 @@ public class MainActivity extends PreferenceActivity {
 
 
         mMicroFadeOutDelay = (ListPreference) findPreference(PREF_MICRO_FADE_OUT_DELAY);
-
         mShortFadeOutDelay = (ListPreference) findPreference(PREF_SHORT_FADE_OUT_DELAY);
-
         mLongFadeOutDelay = (ListPreference) findPreference(PREF_LONG_FADE_OUT_DELAY);
 
         mVersion = findPreference(PREF_VERSION);
@@ -115,7 +113,6 @@ public class MainActivity extends PreferenceActivity {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         resetAllPreferences();
-                        Toast.makeText(getApplicationContext(), getString(R.string.stock_values_restored), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -134,6 +131,8 @@ public class MainActivity extends PreferenceActivity {
         mLongFadeOutDelay.setValue("5000");
         mShortFadeOutDelay.setValue("2500");
         mMicroFadeOutDelay.setValue("1250");
+        Toast.makeText(getApplicationContext(),
+                getString(R.string.stock_values_restored), Toast.LENGTH_SHORT).show();
     }
 
     /**
