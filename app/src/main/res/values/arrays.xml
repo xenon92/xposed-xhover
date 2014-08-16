@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Hover micro fade out delay -->
+    <!-- Hover micro fade out delay (Evade notification)-->
     <string-array name="micro_fade_out_delay_entries">
+        <item>@string/micro_fade_out_delay_0_25_seconds</item>
         <item>@string/micro_fade_out_delay_0_75_seconds</item>
         <item>@string/micro_fade_out_delay_1_25_seconds</item>
         <item>@string/micro_fade_out_delay_1_75_seconds</item>
@@ -11,6 +12,7 @@
     </string-array>
 
     <string-array name="micro_fade_out_delay_values">
+        <item>250</item>
         <item>750</item>
         <item>1250</item>
         <item>1750</item>
@@ -19,8 +21,9 @@
     </string-array>
 
 
-    <!-- Hover short fade out delay -->
+    <!-- Hover short fade out delay (Notification waiting) -->
     <string-array name="short_fade_out_delay_entries">
+        <item>@string/short_fade_out_delay_1_0_second</item>
         <item>@string/short_fade_out_delay_1_5_seconds</item>
         <item>@string/short_fade_out_delay_2_0_seconds</item>
         <item>@string/short_fade_out_delay_2_5_seconds</item>
@@ -30,6 +33,7 @@
     </string-array>
 
     <string-array name="short_fade_out_delay_values">
+        <item>1000</item>
         <item>1500</item>
         <item>2000</item>
         <item>2500</item>
@@ -39,8 +43,9 @@
     </string-array>
 
 
-    <!-- Hover long fade out duration -->
+    <!-- Hover long fade out duration (Natural timeout) -->
     <string-array name="long_face_out_delay_entries">
+        <item>@string/long_fade_out_delay_2_seconds</item>
         <item>@string/long_fade_out_delay_3_seconds</item>
         <item>@string/long_fade_out_delay_4_seconds</item>
         <item>@string/long_fade_out_delay_5_seconds</item>
@@ -52,6 +57,7 @@
     </string-array>
 
     <string-array name="long_fade_out_delay_values">
+        <item>2000</item>
         <item>3000</item>
         <item>4000</item>
         <item>5000</item>

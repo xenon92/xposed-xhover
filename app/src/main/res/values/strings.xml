@@ -52,6 +52,7 @@
         after a touch outside the notification view
     </string>
 
+    <string name="micro_fade_out_delay_0_25_seconds">0.25 seconds</string>
     <string name="micro_fade_out_delay_0_75_seconds">0.75 seconds</string>
     <string name="micro_fade_out_delay_1_25_seconds">1.25 seconds</string>
     <string name="micro_fade_out_delay_1_75_seconds">1.75 seconds</string>
@@ -67,6 +68,7 @@
         if there is another notification waiting to be shown
     </string>
 
+    <string name="short_fade_out_delay_1_0_second">1 second</string>
     <string name="short_fade_out_delay_1_5_seconds">1.5 seconds</string>
     <string name="short_fade_out_delay_2_0_seconds">2 seconds</string>
     <string name="short_fade_out_delay_2_5_seconds">2.5 seconds</string>
@@ -82,6 +84,7 @@
         Time duration for Hover notification to stay on screen
         if there is no interaction with the device</string>
 
+    <string name="long_fade_out_delay_2_seconds">2 seconds</string>
     <string name="long_fade_out_delay_3_seconds">3 seconds</string>
     <string name="long_fade_out_delay_4_seconds">4 seconds</string>
     <string name="long_fade_out_delay_5_seconds">5 seconds</string>
