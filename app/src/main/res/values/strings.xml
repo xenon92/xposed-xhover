@@ -28,8 +28,8 @@
     <string name="changelog">Changelog</string>
     <string name="changelog_summary">See the changelog for the app</string>
 
-    <string name="read_more">Read more</string>
-    <string name="read_more_summary">Know more about XHover</string>
+    <string name="about">About</string>
+    <string name="about_summary">Know more about xHover</string>
 
 
     <!-- GUI strings -->

@@ -59,6 +59,11 @@
     <PreferenceCategory android:title="@string/category_app_details" />
 
     <PreferenceScreen
+        android:key="about_preference"
+        android:summary="@string/about_summary"
+        android:title="@string/about" />
+
+    <PreferenceScreen
         android:key="developer_preference"
         android:summary="@string/developer_summary"
         android:title="@string/developer" />
@@ -72,10 +77,5 @@
         android:key="changelog_preference"
         android:summary="@string/changelog_summary"
         android:title="@string/changelog" />
-
-    <PreferenceScreen
-        android:key="read_more_preference"
-        android:summary="@string/read_more_summary"
-        android:title="@string/read_more" />
 
 </PreferenceScreen>
