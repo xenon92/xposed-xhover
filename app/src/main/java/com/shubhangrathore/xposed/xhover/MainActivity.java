@@ -63,8 +63,10 @@ public class MainActivity extends PreferenceActivity {
 
         // Set action bar color
         ActionBar mActionBar = getActionBar();
-        mActionBar.setBackgroundDrawable(new ColorDrawable(getResources()
-                .getColor(R.color.material_indigo_dark)));
+        if (mActionBar != null) {
+            mActionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+                    .getColor(R.color.material_indigo_dark)));
+        }
 
 
         // ########################################################## //
