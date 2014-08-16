@@ -144,6 +144,7 @@ public class MainActivity extends PreferenceActivity {
         try {
             sVersionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             mVersion.setSummary(sVersionName);
+            Log.i(TAG, "xHover version: " + sVersionName);
         } catch (PackageManager.NameNotFoundException e) {
             Log.e(TAG, "Unable to get xHover package versionName");
         }
