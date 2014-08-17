@@ -23,16 +23,20 @@ package com.shubhangrathore.xposed.xhover;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -55,6 +59,7 @@ public class MainActivity extends PreferenceActivity {
     private static final String PREF_DEVELOPER = "developer_preference";
     private static final String PREF_RESET_ALL = "reset_all";
     private static final String PREF_SOURCE_CODE = "app_source_preference";
+    private static final String PREF_TEST_NOTIFICATION = "test_notification";
     private static final String PREF_VERSION = "app_version_name";
 
     private static final String ABOUT_XHOVER_BLOG_LINK = "http://blog.shubhangrathore.com/xhover/";
@@ -73,6 +78,7 @@ public class MainActivity extends PreferenceActivity {
     private Preference mDeveloper;
     private Preference mResetAll;
     private Preference mSourceCode;
+    private Preference mTestNotification;
     private Preference mVersion;
 
     @Override
@@ -111,6 +117,7 @@ public class MainActivity extends PreferenceActivity {
         mDeveloper = findPreference(PREF_DEVELOPER);
         mResetAll = findPreference(PREF_RESET_ALL);
         mSourceCode = findPreference(PREF_SOURCE_CODE);
+        mTestNotification = findPreference(PREF_TEST_NOTIFICATION);
     }
 
 
@@ -129,6 +136,8 @@ public class MainActivity extends PreferenceActivity {
             openLink(SOURCE_CODE_LINK);
         } else if (preference == mApply) {
             restartSystemUi();
+        } else if (preference == mTestNotification) {
+            makeStatusBarNotification();
         }
         return false;
     }
@@ -227,5 +236,28 @@ public class MainActivity extends PreferenceActivity {
             mSuccessful = false;
         }
         return mSuccessful;
+    }
+
+    /**
+     * Posts a Test notification to status bar to be displayed through Hover.
+     */
+    private void makeStatusBarNotification(){
+        final NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_hover_pressed_notification)
+                        .setAutoCancel(true)
+                        .setContentTitle(getString(R.string.notification_xhover))
+                        .setContentText(getString(R.string.notification_text))
+                        .setTicker(getString(R.string.notification_text));
+
+        final NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        final int mNotificationDelay = 3000;          // 3 seconds
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                mNotificationManager.notify(0, mBuilder.build());
+            }}, mNotificationDelay);
     }
 }

@@ -76,6 +76,12 @@
         android:summary="@string/apply_summary"
         android:title="@string/apply" />
 
+    <!-- Test notification -->
+    <PreferenceScreen
+        android:key="test_notification"
+        android:summary="@string/test_notification_summary"
+        android:title="@string/test_notification" />
+
     <!-- Reset all preferences to stock ParanoidAndroid values -->
     <PreferenceScreen
         android:key="reset_all"

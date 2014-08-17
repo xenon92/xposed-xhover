@@ -66,6 +66,10 @@
     <string name="apply_summary">
         SystemUI needs to be restarted for changes to take effect
         \nSuperUser permission required</string>
+    <string name="test_notification">Test notification</string>
+    <string name="test_notification_summary">Send a test notification after 3 seconds</string>
+    <string name="notification_xhover">xHover</string>
+    <string name="notification_text">This is a test notification from xHover</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
