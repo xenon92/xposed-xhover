@@ -24,7 +24,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Customizes Paranoid Android\'s Hover notifications" />
+            android:value="Customizes Hover notifications" />
         <meta-data
             android:name="xposedminversion"
             android:value="30" />
