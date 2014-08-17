@@ -72,18 +72,21 @@
 
     <!-- Apply custom values to Hover -->
     <PreferenceScreen
+        android:icon="@drawable/ic_apply"
         android:key="apply_preference"
         android:summary="@string/apply_summary"
         android:title="@string/apply" />
 
     <!-- Test notification -->
     <PreferenceScreen
+        android:icon="@drawable/ic_test_notification"
         android:key="test_notification"
         android:summary="@string/test_notification_summary"
         android:title="@string/test_notification" />
 
     <!-- Reset all preferences to stock ParanoidAndroid values -->
     <PreferenceScreen
+        android:icon="@drawable/ic_reset"
         android:key="reset_all"
         android:summary="@string/reset_all_summary"
         android:title="@string/reset_all" />
