@@ -187,6 +187,8 @@ public class XposedHover implements IXposedHookLoadPackage {
         // (1 && !2) -> mShortFadeOutDelay
         // (!1 && 2) -> mLongFadeOutDelay
         // (!1 && !2) -> mShortFadeOutDelay
+        // This method hook along with startOverrideCountdown(int) method hook deals with
+        // 'Notification waiting' timeout.
         XposedHelpers.findAndHookMethod(mHoverClass, "processOverridingQueue", boolean.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
