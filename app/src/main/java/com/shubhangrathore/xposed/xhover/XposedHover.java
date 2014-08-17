@@ -49,7 +49,6 @@ public class XposedHover implements IXposedHookLoadPackage {
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
-
         if (!loadPackageParam.packageName.equals(PACKAGE_SYSTEM_UI)) {
             return;
         }
@@ -75,10 +74,8 @@ public class XposedHover implements IXposedHookLoadPackage {
         // will stay on screen after a touch is detected outside the notification view.
         // This is the 'Evade notification' feature.
         XposedHelpers.findAndHookMethod(mHoverClass, "startMicroHideCountdown", new XC_MethodHook() {
-
             @Override
             protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-
                 // Setting sCallingMethod flag that will be used before executing
                 // startHideCountdown(int) method to determine the method name
                 // that called it. This helps overriding the 'int' time delay parameter
@@ -89,7 +86,6 @@ public class XposedHover implements IXposedHookLoadPackage {
 
             @Override
             protected void afterHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-
                 // Resetting the flag after the countdown methods have executed
                 // completely so as to prevent overriding wrong sCallingMethod detection
                 Log.d(TAG, "Calling method reset after: " + sCallingMethod);
@@ -99,7 +95,6 @@ public class XposedHover implements IXposedHookLoadPackage {
 
 
         /*
-        //
         // startShortHideCountdown method is an unused method in Hover.java
         //
         // Hooking method startShortHideCountdown() that calls method startHideCountdown(int)
@@ -107,7 +102,6 @@ public class XposedHover implements IXposedHookLoadPackage {
         // will stay on screen if another notification is waiting to be shown
         // This is the 'Notification waiting' time delay.
         XposedHelpers.findAndHookMethod(mHoverClass, "startShortHideCountdown", new XC_MethodHook() {
-
             @Override
             protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
                 sCallingMethod = "startShortHideCountdown";
@@ -128,7 +122,6 @@ public class XposedHover implements IXposedHookLoadPackage {
         // will stay on screen if there is no interaction with the device
         // This is the 'Natural timeout' delay.
         XposedHelpers.findAndHookMethod(mHoverClass, "startLongHideCountdown", new XC_MethodHook() {
-
             @Override
             protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
                 sCallingMethod = "startLongHideCountdown";
@@ -149,9 +142,7 @@ public class XposedHover implements IXposedHookLoadPackage {
         XposedHelpers.findAndHookMethod(mHoverClass, "startHideCountdown", int.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-
                 if (sCallingMethod.equals("startMicroHideCountdown")) {
-
                     // Detected that startMicroHideCountdown() method called
                     // startHideCountdown(int) method.
                     // Overriding 'Evade notification' values here.
@@ -161,7 +152,6 @@ public class XposedHover implements IXposedHookLoadPackage {
                     methodHookParam.args[0] = mMicroFadeOutDelay;
 
                 /*
-
                 // startShortHideCountdown method is an unused method in Hover.java
 
                 } else if (sCallingMethod.equals("startShortHideCountdown")) {
@@ -176,7 +166,6 @@ public class XposedHover implements IXposedHookLoadPackage {
                 */
 
                 } else if (sCallingMethod.equals("startLongHideCountdown")) {
-
                     // Detected that startLongHideCountdown() method called
                     // startHideCountdown(int) method.
                     // Overriding 'Natural timeout' values here.
@@ -214,7 +203,6 @@ public class XposedHover implements IXposedHookLoadPackage {
 
             @Override
             protected void afterHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-
                 // Resetting flags after processOverridingQueue method has executed
                 // completely so as to prevent overriding wrong sCallingMethod detection
                 // and wrong notification expanded state
@@ -231,10 +219,8 @@ public class XposedHover implements IXposedHookLoadPackage {
         XposedHelpers.findAndHookMethod(mHoverClass, "startOverrideCountdown", int.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-
                 if (sCallingMethod.equals("processOverridingQueue")) {
                     if (sExpanded) {
-
                         // If here, it means that there are more than one notifications
                         // in queue and the notification currently being shown is expanded.
                         // Therefore, using mLongFadeOutDelay for current notification in Hover.
@@ -242,7 +228,6 @@ public class XposedHover implements IXposedHookLoadPackage {
                                 "- EXPANDED: " + mLongFadeOutDelay);
                         methodHookParam.args[0] = mLongFadeOutDelay;
                     } else {
-
                         //If here, it means that there are more than one notifications
                         // in queue and the notification currently being shown is not expanded.
                         // Therefore, using mShortFadeOutDelay for current notification in Hover.
