@@ -38,6 +38,9 @@ import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 
 public class MainActivity extends PreferenceActivity {
 
@@ -47,6 +50,7 @@ public class MainActivity extends PreferenceActivity {
     public static final String PREF_LONG_FADE_OUT_DELAY = "long_fade_out_delay";
     public static final String PREF_SHORT_FADE_OUT_DELAY = "short_fade_out_delay";
     private static final String PREF_ABOUT = "about_preference";
+    private static final String PREF_APPLY = "apply_preference";
     private static final String PREF_CHANGELOG = "changelog_preference";
     private static final String PREF_DEVELOPER = "developer_preference";
     private static final String PREF_RESET_ALL = "reset_all";
@@ -63,12 +67,13 @@ public class MainActivity extends PreferenceActivity {
     private ListPreference mLongFadeOutDelay;             // Natural timeout preference
     private ListPreference mShortFadeOutDelay;            // Notification waiting preference
     private ListPreference mMicroFadeOutDelay;            // Evade notification preference
-    private Preference mResetAll;
-    private Preference mVersion;
     private Preference mAbout;
+    private Preference mApply;
     private Preference mChangelog;
     private Preference mDeveloper;
+    private Preference mResetAll;
     private Preference mSourceCode;
+    private Preference mVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,10 +105,11 @@ public class MainActivity extends PreferenceActivity {
         mVersion = findPreference(PREF_VERSION);
         setVersionNameInGui();
 
-        mResetAll = findPreference(PREF_RESET_ALL);
         mAbout = findPreference(PREF_ABOUT);
+        mApply = findPreference(PREF_APPLY);
         mChangelog = findPreference(PREF_CHANGELOG);
         mDeveloper = findPreference(PREF_DEVELOPER);
+        mResetAll = findPreference(PREF_RESET_ALL);
         mSourceCode = findPreference(PREF_SOURCE_CODE);
     }
 
@@ -121,6 +127,8 @@ public class MainActivity extends PreferenceActivity {
             openLink(CHANGELOG_LINK);
         } else if (preference == mSourceCode) {
             openLink(SOURCE_CODE_LINK);
+        } else if (preference == mApply) {
+            restartSystemUi();
         }
         return false;
     }
@@ -181,5 +189,43 @@ public class MainActivity extends PreferenceActivity {
                 Uri.parse(link));
         startActivity(browserIntent);
         Log.i(TAG, "Opening link = " + link);
+    }
+
+    /**
+     * Restarts SystemUI. Requires SuperUser privilege.
+     * @return boolean true if successful, else false.
+     */
+    private boolean restartSystemUi() {
+        boolean mSuccessful;
+        try {
+            Process mProcess = Runtime.getRuntime().exec("su");
+            DataOutputStream mDataOutputStream = new DataOutputStream(mProcess.getOutputStream());
+            mDataOutputStream.writeBytes("pkill com.android.systemui \n");
+            mDataOutputStream.writeBytes("exit\n");
+            mDataOutputStream.flush();
+            // We wait for the command to be completed
+            // before moving forward. This ensures that the method
+            // returns only after all the commands' execution is complete.
+            mProcess.waitFor();
+
+            if (mProcess.exitValue() == 1) {
+                // If control is here, that means the sub process has returned
+                // an unsuccessful exit code.
+                // Most probably, SuperUser permission was denied
+                Log.e(TAG, "Utilities: SuperUser permission denied. Unable to restart SystemUI.");
+                mSuccessful = false;
+            } else {
+                // SuperUser permission granted
+                Log.i(TAG, "Utilities: SuperUser permission granted. SystemUI restarted.");
+                mSuccessful = true;
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "restartSystemUI: I/O exception");
+            mSuccessful = false;
+        } catch (InterruptedException e) {
+            Log.e(TAG, "restartSystemUI: InterruptedException exception");
+            mSuccessful = false;
+        }
+        return mSuccessful;
     }
 }

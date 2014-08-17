@@ -67,6 +67,14 @@
         android:summary="@string/evade_notification_summary"
         android:title="@string/evade_notification" />
 
+    <!-- Actions category -->
+    <PreferenceCategory android:title="@string/category_actions" />
+
+    <!-- Apply custom values to Hover -->
+    <PreferenceScreen
+        android:key="apply_preference"
+        android:summary="@string/apply_summary"
+        android:title="@string/apply" />
 
     <!-- Reset all preferences to stock ParanoidAndroid values -->
     <PreferenceScreen
