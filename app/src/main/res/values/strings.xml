@@ -56,8 +56,8 @@
     <!-- GUI strings -->
     <string name="category_time_delays">time delays</string>
     <string name="category_actions">actions</string>
-    <string name="reset_all">Reset all</string>
-    <string name="reset_all_summary">Reset all settings to stock ParanoidAndroid values</string>
+    <string name="reset_all">Reset</string>
+    <string name="reset_all_summary">Reset all settings to stock Paranoid Android values</string>
     <string name="reset_all_confirmation_message">
         Are you sure you want to reset all settings
         to stock Paranoid Android values?</string>
