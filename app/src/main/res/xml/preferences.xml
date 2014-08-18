@@ -67,6 +67,20 @@
         android:summary="@string/evade_notification_summary"
         android:title="@string/evade_notification" />
 
+
+    <!-- Behavior category -->
+    <PreferenceCategory android:title="@string/category_behavior" />
+
+    <!-- Lock screen behavior -->
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/lockscreen_behavior_entries"
+        android:entryValues="@array/lockscreen_behavior_values"
+        android:key="lockscreen_behavior"
+        android:summary="@string/lockscreen_behavior_summary"
+        android:title="@string/lockscreen_behavior" />
+
+
     <!-- Actions category -->
     <PreferenceCategory android:title="@string/category_actions" />
 

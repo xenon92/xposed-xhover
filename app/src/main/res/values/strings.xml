@@ -56,6 +56,7 @@
     <!-- GUI strings -->
     <string name="category_time_delays">time delays</string>
     <string name="category_actions">actions</string>
+    <string name="category_behavior">behavior</string>
     <string name="reset_all">Reset</string>
     <string name="reset_all_summary">Reset all settings to stock Paranoid Android values</string>
     <string name="reset_all_confirmation_message">
@@ -124,5 +125,13 @@
     <string name="long_fade_out_delay_9_seconds">9 seconds</string>
     <string name="long_fade_out_delay_10_seconds">10 seconds</string>
 
+
+    <!-- Lock screen behavior -->
+    <string name="lockscreen_behavior">Lock screen</string>
+    <string name="lockscreen_behavior_summary">Show Hover notifications on secure and/or insecure lock screen</string>
+
+    <string name="insecure_only">Insecure</string>
+    <string name="insecure_and_secure">Insecure and secure</string>
+    <string name="insecure_nor_secure">Neither insecure nor secure</string>
 
 </resources>

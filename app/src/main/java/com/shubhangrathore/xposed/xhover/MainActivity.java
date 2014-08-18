@@ -53,6 +53,7 @@ public class MainActivity extends PreferenceActivity {
     public static final String PREF_MICRO_FADE_OUT_DELAY = "micro_fade_out_delay";
     public static final String PREF_LONG_FADE_OUT_DELAY = "long_fade_out_delay";
     public static final String PREF_SHORT_FADE_OUT_DELAY = "short_fade_out_delay";
+    public static final String PREF_LOCKSCREEN_BEHAVIOR = "lockscreen_behavior";
     private static final String PREF_ABOUT = "about_preference";
     private static final String PREF_APPLY = "apply_preference";
     private static final String PREF_CHANGELOG = "changelog_preference";
@@ -72,6 +73,7 @@ public class MainActivity extends PreferenceActivity {
     private ListPreference mLongFadeOutDelay;             // Natural timeout preference
     private ListPreference mShortFadeOutDelay;            // Notification waiting preference
     private ListPreference mMicroFadeOutDelay;            // Evade notification preference
+    private ListPreference mLockscreenBehavior;
     private Preference mAbout;
     private Preference mApply;
     private Preference mChangelog;
@@ -107,6 +109,7 @@ public class MainActivity extends PreferenceActivity {
         mMicroFadeOutDelay = (ListPreference) findPreference(PREF_MICRO_FADE_OUT_DELAY);
         mShortFadeOutDelay = (ListPreference) findPreference(PREF_SHORT_FADE_OUT_DELAY);
         mLongFadeOutDelay = (ListPreference) findPreference(PREF_LONG_FADE_OUT_DELAY);
+        mLockscreenBehavior = (ListPreference) findPreference(PREF_LOCKSCREEN_BEHAVIOR);
 
         mVersion = findPreference(PREF_VERSION);
         setVersionNameInGui();
@@ -171,6 +174,7 @@ public class MainActivity extends PreferenceActivity {
         mLongFadeOutDelay.setValue("5000");
         mShortFadeOutDelay.setValue("2500");
         mMicroFadeOutDelay.setValue("1250");
+        mLockscreenBehavior.setValue("1");
         Toast.makeText(getApplicationContext(),
                 getString(R.string.stock_values_restored), Toast.LENGTH_SHORT).show();
     }

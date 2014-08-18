@@ -89,4 +89,19 @@
         <item>10000</item>
     </string-array>
 
+
+    <!-- Hover Lock screen behavior -->
+    <string-array name="lockscreen_behavior_entries">
+        <item>@string/insecure_nor_secure</item>
+        <item>@string/insecure_only</item>
+        <item>@string/insecure_and_secure</item>
+    </string-array>
+
+    <string-array name="lockscreen_behavior_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+
+    </string-array>
+
 </resources>

@@ -21,6 +21,8 @@
 
 package com.shubhangrathore.xposed.xhover;
 
+import android.app.KeyguardManager;
+import android.content.Context;
 import android.util.Log;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -46,6 +48,10 @@ public class XposedHover implements IXposedHookLoadPackage {
     private int mMicroFadeOutDelay;            // Evade notification time delay
     private int mShortFadeOutDelay;            // Notification waiting time delay
     private int mLongFadeOutDelay;             // Natural timeout delay
+    private int mLockscreenBehavior;
+
+    private KeyguardManager mKeyguardManager;
+    private Context mContext;
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
@@ -66,6 +72,10 @@ public class XposedHover implements IXposedHookLoadPackage {
         mLongFadeOutDelay =
                 Integer.parseInt(mXSharedPreferences
                         .getString(MainActivity.PREF_LONG_FADE_OUT_DELAY, "2500"));
+
+        mLockscreenBehavior =
+                Integer.parseInt(mXSharedPreferences
+                        .getString(MainActivity.PREF_LOCKSCREEN_BEHAVIOR, "1"));
 
         final Class<?> mHoverClass = XposedHelpers.findClass(CLASS_HOVER, loadPackageParam.classLoader);
 
@@ -237,6 +247,26 @@ public class XposedHover implements IXposedHookLoadPackage {
                                 "- NOT EXPANDED: " + mShortFadeOutDelay);
                         methodHookParam.args[0] = mShortFadeOutDelay;
                     }
+                }
+            }
+        });
+
+
+        // Hooking isKeyguardSecureShowing() to override Hover notifications
+        // behaviour on lock screens
+        XposedHelpers.findAndHookMethod(mHoverClass, "isKeyguardSecureShowing", new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
+                mKeyguardManager = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);
+                // Default behaviour of Hover is to show notifications on Insecure
+                // lock screen only. (i.e. mLockscreenBehavior == 1)
+                if (mLockscreenBehavior == 0) {
+                    // Hide Hover notifications from secure as well as insecure lock screen
+                    param.setResult(mKeyguardManager.isKeyguardLocked());
+                } else if (mLockscreenBehavior == 2) {
+                    // Show Hover notifications on secure as well as insecure lock screen
+                    param.setResult(false);
                 }
             }
         });
