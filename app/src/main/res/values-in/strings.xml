@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ xHover
   ~
-  ~ Xposed module to customize Paranoid Android's Hover notifikasi experience
+  ~ Xposed module to customize Paranoid Android's Hover notification experience
   ~
   ~ Copyright (c) 2014 Shubhang Rathore
   ~
