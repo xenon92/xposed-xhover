@@ -31,7 +31,7 @@
         \nGithub: https://github.com/xenon92
         \nWebsite: http://shubhangrathore.com</string>
 
-    <string name="app_version_text">Version</string>
+    <string name="app_version_text">Versão</string>
 
 
     <!-- App details -->
@@ -41,7 +41,7 @@
     <string name="source">Fonte</string>
     <string name="source_summary"> Vá até o código-fonte do aplicativo </string>
 
-    <string name="developer">Dsenvolvedor</string>
+    <string name="developer">Desenvolvedor</string>
     <string name="developer_summary">
         Shubhang Rathore
         \nVisit desenvolvedor do site \'s</string>
