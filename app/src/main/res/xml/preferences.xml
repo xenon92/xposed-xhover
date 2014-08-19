@@ -80,6 +80,20 @@
         android:summary="@string/lockscreen_behavior_summary"
         android:title="@string/lockscreen_behavior" />
 
+    <!-- Hide non-clearable -->
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="hide_non_clearable"
+        android:title="@string/hide_non_clearable"
+        android:summary="@string/hide_non_clearable_summary" />
+
+    <!-- Hide low-priority -->
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="hide_low_priority"
+        android:title="@string/hide_low_priority"
+        android:summary="@string/hide_low_priority_summary" />
+
 
     <!-- Actions category -->
     <PreferenceCategory android:title="@string/category_actions" />

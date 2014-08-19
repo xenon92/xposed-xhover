@@ -71,6 +71,12 @@
     <string name="test_notification_summary">Send a test notification after 3 seconds</string>
     <string name="notification_xhover">xHover</string>
     <string name="notification_text">This is a test notification from xHover</string>
+    <string name="hide_non_clearable">Hide non-clearable</string>
+    <string name="hide_non_clearable_summary">
+        Prevent non-clearable notification from showing up in Hover</string>
+    <string name="hide_low_priority">Hide low-priority</string>
+    <string name="hide_low_priority_summary">
+        Prevent low-priority notifications from showing up in Hover (such as those from Google Now)</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>

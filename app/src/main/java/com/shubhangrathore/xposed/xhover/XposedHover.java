@@ -22,7 +22,9 @@
 package com.shubhangrathore.xposed.xhover;
 
 import android.app.KeyguardManager;
+import android.app.Notification;
 import android.content.Context;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -39,19 +41,25 @@ public class XposedHover implements IXposedHookLoadPackage {
     private static final String TAG = "XposedHover";
 
     private static final String CLASS_HOVER = "com.android.systemui.statusbar.notification.Hover";
+    private static final String CLASS_NOTIFICATION_DATA_ENTRY = "com.android.systemui.statusbar.NotificationData$Entry";
+    private static final String CLASS_NOTIFICATION_HELPER = "com.android.systemui.statusbar.notification.NotificationHelper";
     private static final String PACKAGE_XHOVER = XposedHover.class.getPackage().getName();
     private static final String PACKAGE_SYSTEM_UI = "com.android.systemui";
 
     private static String sCallingMethod = "";
     private static boolean sExpanded;
+    private static String sCurrentNotificationPackageName;
 
     private int mMicroFadeOutDelay;            // Evade notification time delay
     private int mShortFadeOutDelay;            // Notification waiting time delay
     private int mLongFadeOutDelay;             // Natural timeout delay
     private int mLockscreenBehavior;
+    private boolean mHideNonClearable;
+    private boolean mHideLowPriority;
 
     private KeyguardManager mKeyguardManager;
     private Context mContext;
+    private StatusBarNotification mStatusBarNotification;
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
@@ -77,7 +85,13 @@ public class XposedHover implements IXposedHookLoadPackage {
                 Integer.parseInt(mXSharedPreferences
                         .getString(MainActivity.PREF_LOCKSCREEN_BEHAVIOR, "1"));
 
+        mHideNonClearable = mXSharedPreferences.getBoolean(MainActivity.PREF_HIDE_NON_CLEARABLE, false);
+        mHideLowPriority = mXSharedPreferences.getBoolean(MainActivity.PREF_HIDE_LOW_PRIORITY, false);
+
         final Class<?> mHoverClass = XposedHelpers.findClass(CLASS_HOVER, loadPackageParam.classLoader);
+        final Class<?> mNotificationDataEntryClass = XposedHelpers.findClass(CLASS_NOTIFICATION_DATA_ENTRY, loadPackageParam.classLoader);
+        final Class<?> mNotificationHelperClass = XposedHelpers.findClass(CLASS_NOTIFICATION_HELPER, loadPackageParam.classLoader);
+
 
         // Hooking method startMicroHideCountdown() that calls method startHideCountdown(int)
         // providing the later method with the time delay for which Hover notification
@@ -267,6 +281,46 @@ public class XposedHover implements IXposedHookLoadPackage {
                 } else if (mLockscreenBehavior == 2) {
                     // Show Hover notifications on secure as well as insecure lock screen
                     param.setResult(false);
+                }
+            }
+        });
+
+
+        // HACK: to not show non-clearable and/or low-priority notifications in Hover
+        //
+        // I am using the boolean variable flag "foreground" that is declared
+        // as a local variable in the method "setNotification(xxx,xxx)" in Hover class.
+        // The boolean decides if the notification is from a TOP MOST app,
+        // i.e. the app currently on screen. It uses the method "getForegroundPackageName"
+        // from NotificationHelper class and does the evaluation.
+        // I re-purposed this single flag to check and evaluate 3 things now:
+        // 1. If the app is actually in foreground ONLY
+        // 2. If the notification is clearable or not
+        // 3. If the notification is of low priority (like the ones from Google Now)
+        XposedHelpers.findAndHookMethod(mHoverClass, "setNotification", mNotificationDataEntryClass, boolean.class, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                Object notificationEntry = param.args[0];
+                mStatusBarNotification = (StatusBarNotification) XposedHelpers.getObjectField(notificationEntry, "notification");
+                sCurrentNotificationPackageName = mStatusBarNotification.getPackageName();
+            }
+        });
+
+
+        // If the notification is non-clearable and/or of low priority, depending on
+        // user configuration, returning the current notification's
+        // package name spoofing the actual TOP MOST (foreground) app. This makes the
+        // the setNotification method act as if the notification is from the TOP MOST
+        // app and it sets the "foreground" flag as true, which sends the notification
+        // to status bar instead of Hover.
+        XposedHelpers.findAndHookMethod(mNotificationHelperClass, "getForegroundPackageName", new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                int priority = mStatusBarNotification.getNotification().priority;
+                if (mHideNonClearable && !mStatusBarNotification.isClearable()) {
+                    param.setResult(sCurrentNotificationPackageName);
+                } else if (mHideLowPriority && (priority < Notification.PRIORITY_LOW)) {
+                    param.setResult(sCurrentNotificationPackageName);
                 }
             }
         });

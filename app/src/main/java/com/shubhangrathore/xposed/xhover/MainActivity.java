@@ -32,6 +32,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -54,6 +55,8 @@ public class MainActivity extends PreferenceActivity {
     public static final String PREF_LONG_FADE_OUT_DELAY = "long_fade_out_delay";
     public static final String PREF_SHORT_FADE_OUT_DELAY = "short_fade_out_delay";
     public static final String PREF_LOCKSCREEN_BEHAVIOR = "lockscreen_behavior";
+    public static final String PREF_HIDE_NON_CLEARABLE = "hide_non_clearable";
+    public static final String PREF_HIDE_LOW_PRIORITY = "hide_low_priority";
     private static final String PREF_ABOUT = "about_preference";
     private static final String PREF_APPLY = "apply_preference";
     private static final String PREF_CHANGELOG = "changelog_preference";
@@ -74,6 +77,8 @@ public class MainActivity extends PreferenceActivity {
     private ListPreference mShortFadeOutDelay;            // Notification waiting preference
     private ListPreference mMicroFadeOutDelay;            // Evade notification preference
     private ListPreference mLockscreenBehavior;
+    private CheckBoxPreference mHideNonClearable;
+    private CheckBoxPreference mHideLowPriority;
     private Preference mAbout;
     private Preference mApply;
     private Preference mChangelog;
@@ -106,6 +111,8 @@ public class MainActivity extends PreferenceActivity {
         // ########################################################## //
 
 
+        mHideNonClearable = (CheckBoxPreference) findPreference(PREF_HIDE_NON_CLEARABLE);
+        mHideLowPriority = (CheckBoxPreference) findPreference(PREF_HIDE_LOW_PRIORITY);
         mMicroFadeOutDelay = (ListPreference) findPreference(PREF_MICRO_FADE_OUT_DELAY);
         mShortFadeOutDelay = (ListPreference) findPreference(PREF_SHORT_FADE_OUT_DELAY);
         mLongFadeOutDelay = (ListPreference) findPreference(PREF_LONG_FADE_OUT_DELAY);
@@ -175,6 +182,8 @@ public class MainActivity extends PreferenceActivity {
         mShortFadeOutDelay.setValue("2500");
         mMicroFadeOutDelay.setValue("1250");
         mLockscreenBehavior.setValue("1");
+        mHideNonClearable.setChecked(false);
+        mHideLowPriority.setChecked(false);
         Toast.makeText(getApplicationContext(),
                 getString(R.string.stock_values_restored), Toast.LENGTH_SHORT).show();
     }
