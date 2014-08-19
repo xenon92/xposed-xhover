@@ -61,12 +61,12 @@
     <string name="reset_all_summary">Repor todas as definições para estocar valores Paranoid Android?</string>
     <string name="reset_all_confirmation_message">
         Tem certeza que deseja redefinir todas configurações
-        ao estoque Paranoid Android values?</string>
+        valores ao estoque Paranoid Android?</string>
     <string name="stock_values_restored">O valor das ações restaurados</string>
     <string name="apply">Aplicar</string>
     <string name="apply_summary">
         SystemUI precisa ser reiniciado para que as alterações entrem em vigor
-        \nSuperUser permission required</string>
+        \Permissão de superusuário necessário</string>
     <string name="test_notification">Notificação de teste</string>
     <string name="test_notification_summary">Enviar uma notificação de teste após 3 segundos</string>
     <string name="notification_xhover">xHover</string>
