@@ -12,9 +12,9 @@ Check out this [video](https://www.youtube.com/watch?v=u_3Ik7m3z50) about Hover 
 Screenshots
 ---
 
-![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Aug/screenshot-v1-1-1.png)
+![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Aug/screenshot-v1-2-1.png)
 
-![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Aug/screenshot-v1-1-2.png)
+![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Aug/screenshot-v1-2-2.png)
 
 
 
@@ -24,6 +24,9 @@ Features
 - **Normal timeout**: Customize the time duration for Hover notification to stay on screen if there is no interaction with the device.
 - **Notification waiting**: Customize the time duration for Hover notification to stay on screen if there is another notification waiting to be shown.
 - **Evade notification**: Customize the time duration for Hover notification to stay on screen after a touch outside the notification view.
+- Ability to customize **Hover notification behavior on lock screen**
+- Ability to **hide non-clearable** notifications
+- Ability to **hide low-priority** notifications
 - Translucent decors
 
 
