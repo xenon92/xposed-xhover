@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ xHover
+  ~
+  ~ Xposed module to customize Paranoid Android's Hover notification experience
+  ~
+  ~ Copyright (c) 2014 Shubhang Rathore
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <!-- App info -->
+
+    <string name="app_name">xHover</string>
+    <string name="app_copyright">
+        Copyright © 2014 Shubhang Rathore
+        \nGoogle+: http://google.com/+ShubhangRathore
+        \nGithub: https://github.com/xenon92
+        \nWebsite: http://shubhangrathore.com</string>
+
+    <string name="app_version_text">Versão</string>
+
+
+    <!-- App details -->
+
+    <string name="category_app_details">xHover</string>
+
+    <string name="source">Fonte</string>
+    <string name="source_summary"> Vá até o código-fonte do aplicativo </string>
+
+    <string name="developer">Desenvolvedor</string>
+    <string name="developer_summary">
+        Shubhang Rathore
+        \nVisit desenvolvedor do site \'s</string>
+
+    <string name="changelog">Mudanças</string>
+    <string name="changelog_summary">Veja o changelog para o aplicativo</string>
+
+    <string name="about">Sobre</string>
+    <string name="about_summary">Saiba mais sobre o xHover</string>
+
+
+    <!-- GUI strings -->
+    <string name="category_time_delays">time atrasos</string>
+    <string name="category_actions">ações</string>
+    <string name="category_behavior">comportamento</string>
+    <string name="reset_all">Redefenir</string>
+    <string name="reset_all_summary">Repor todas as definições para estocar valores Paranoid Android?</string>
+    <string name="reset_all_confirmation_message">
+        Tem certeza que deseja redefinir todas configurações
+        valores ao estoque Paranoid Android?</string>
+    <string name="stock_values_restored">O valor das ações restaurados</string>
+    <string name="apply">Aplicar</string>
+    <string name="apply_summary">
+        SystemUI precisa ser reiniciado para que as alterações entrem em vigor
+        \Permissão de superusuário necessário</string>
+    <string name="test_notification">Notificação de teste</string>
+    <string name="test_notification_summary">Enviar uma notificação de teste após 3 segundos</string>
+    <string name="notification_xhover">xHover</string>
+    <string name="notification_text">Este é um teste de notificação de xHover</string>
+    <string name="hide_non_clearable">Ocultar não-eliminavél</string>
+    <string name="hide_non_clearable_summary">
+        Impedir a comunicação não eliminavél de aparecer em Hover</string>
+    <string name="hide_low_priority">Ocultar baixa prioridade</string>
+    <string name="hide_low_priority_summary">
+        Impedir que notificações de baixa prioridade de aparecer em Hover (como os da Google Now)</string>
+
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+
+
+    <!-- Hover micro fade out delays -->
+    <string name="evade_notification">Notificação evade</string>
+    <string name="evade_notification_summary">
+        Tempo de duração para notificação Hover para ficar na tela
+        depois de um toque no exterior da vista notificação
+    </string>
+
+    <string name="micro_fade_out_delay_0_25_seconds">0.25 segundos</string>
+    <string name="micro_fade_out_delay_0_75_seconds">0.75 segundos</string>
+    <string name="micro_fade_out_delay_1_25_seconds">1.25 segundos</string>
+    <string name="micro_fade_out_delay_1_75_seconds">1.75 segundos</string>
+    <string name="micro_fade_out_delay_2_25_seconds">2.25 segundos</string>
+    <string name="micro_fade_out_delay_2_75_seconds">2.75 segundos</string>
+
+
+
+    <!-- Hover short fade out delays -->
+    <string name="notification_waiting">Notificação de espera</string>
+    <string name="notification_waiting_summary">
+        Tempo de duração para notificação Hover para ficar na tela
+        Se houver outra notificação para ser mostrada</string>
+
+    <string name="short_fade_out_delay_1_0_second">1 segundos</string>
+    <string name="short_fade_out_delay_1_5_seconds">1.5 segundos</string>
+    <string name="short_fade_out_delay_2_0_seconds">2 segundos</string>
+    <string name="short_fade_out_delay_2_5_seconds">2.5 segundos</string>
+    <string name="short_fade_out_delay_3_0_seconds">3 segundos</string>
+    <string name="short_fade_out_delay_3_5_seconds">3.5 segundos</string>
+    <string name="short_fade_out_delay_4_0_seconds">4 segundos</string>
+
+
+
+    <!-- Hover long fade out delays -->
+    <string name="natural_timeout">Tempo limite natural</string>
+    <string name="natural_timeout_summary">
+        Tempo de duração para notificação Hover para ficar na tela
+       Se não existir qualquer interação com o dispositivo de</string>
+
+    <string name="long_fade_out_delay_2_seconds">2 segundos</string>
+    <string name="long_fade_out_delay_3_seconds">3 segundos</string>
+    <string name="long_fade_out_delay_4_seconds">4 segundos</string>
+    <string name="long_fade_out_delay_5_seconds">5 segundos</string>
+    <string name="long_fade_out_delay_6_seconds">6 segundos</string>
+    <string name="long_fade_out_delay_7_seconds">7 segundos</string>
+    <string name="long_fade_out_delay_8_seconds">8 segundos</string>
+    <string name="long_fade_out_delay_9_seconds">9 segundos</string>
+    <string name="long_fade_out_delay_10_seconds">10 segundos</string>
+
+
+    <!-- Lock screen behavior -->
+    <string name="lockscreen_behavior">Tela de bloqueio</string>
+    <string name="lockscreen_behavior_summary">Mostrar notificações Hover na tela de bloqueio e/ou inseguro</string>
+
+    <string name="insecure_only">Inseguro</string>
+    <string name="insecure_and_secure">Inseguros e seguros</string>
+    <string name="insecure_nor_secure">Nem inseguro nem seguro</string>
+
+</resources>
