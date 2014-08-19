@@ -316,11 +316,13 @@ public class XposedHover implements IXposedHookLoadPackage {
         XposedHelpers.findAndHookMethod(mNotificationHelperClass, "getForegroundPackageName", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                int priority = mStatusBarNotification.getNotification().priority;
-                if (mHideNonClearable && !mStatusBarNotification.isClearable()) {
-                    param.setResult(sCurrentNotificationPackageName);
-                } else if (mHideLowPriority && (priority < Notification.PRIORITY_LOW)) {
-                    param.setResult(sCurrentNotificationPackageName);
+                if (mStatusBarNotification != null) {
+                    int priority = mStatusBarNotification.getNotification().priority;
+                    if (mHideNonClearable && !mStatusBarNotification.isClearable()) {
+                        param.setResult(sCurrentNotificationPackageName);
+                    } else if (mHideLowPriority && (priority < Notification.PRIORITY_LOW)) {
+                        param.setResult(sCurrentNotificationPackageName);
+                    }
                 }
             }
         });
