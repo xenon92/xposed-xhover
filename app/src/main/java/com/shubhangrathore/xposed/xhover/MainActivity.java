@@ -215,6 +215,7 @@ public class MainActivity extends PreferenceActivity {
 
     /**
      * Restarts SystemUI. Requires SuperUser privilege.
+     *
      * @return boolean true if successful, else false.
      */
     private boolean restartSystemUi() {
@@ -254,7 +255,7 @@ public class MainActivity extends PreferenceActivity {
     /**
      * Posts a Test notification to status bar to be displayed through Hover.
      */
-    private void makeStatusBarNotification(){
+    private void makeStatusBarNotification() {
         final NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_hover_pressed_notification)
@@ -271,6 +272,7 @@ public class MainActivity extends PreferenceActivity {
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 mNotificationManager.notify(0, mBuilder.build());
-            }}, mNotificationDelay);
+            }
+        }, mNotificationDelay);
     }
 }
