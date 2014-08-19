@@ -61,7 +61,7 @@
     <string name="reset_all_summary">Repor todas as definições para estocar valores Paranoid Android?</string>
     <string name="reset_all_confirmation_message">
         Tem certeza que deseja redefinir todas configurações
-        to stock Paranoid Android values?</string>
+        ao estoque Paranoid Android values?</string>
     <string name="stock_values_restored">O valor das ações restaurados</string>
     <string name="apply">Aplicar</string>
     <string name="apply_summary">
