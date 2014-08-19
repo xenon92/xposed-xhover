@@ -76,7 +76,7 @@
         Impedir a comunicação não eliminavél de aparecer em Hover</string>
     <string name="hide_low_priority">Ocultar baixa prioridade</string>
     <string name="hide_low_priority_summary">
-        Impedir que notificações de baixa prioridade de aparecer em Hover (such as those from Google Now)</string>
+        Impedir que notificações de baixa prioridade de aparecer em Hover (como os da Google Now)</string>
 
     <string name="yes">Sim</string>
     <string name="no">Não</string>
