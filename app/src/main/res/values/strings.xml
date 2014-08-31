@@ -57,6 +57,7 @@
     <string name="category_time_delays">time delays</string>
     <string name="category_actions">actions</string>
     <string name="category_behavior">behavior</string>
+    <string name="category_layout">layout</string>
     <string name="reset_all">Reset</string>
     <string name="reset_all_summary">Reset all settings to stock Paranoid Android values</string>
     <string name="reset_all_confirmation_message">
@@ -77,6 +78,18 @@
     <string name="hide_low_priority">Hide low-priority</string>
     <string name="hide_low_priority_summary">
         Prevent low-priority notifications from showing up in Hover (such as those from Google Now)</string>
+    <string name="notification_background_color">Background color</string>
+    <string name="notification_background_color_summary">Set Hover notification\'s background color</string>
+    <string name="notification_title_color">Title color</string>
+    <string name="notification_title_color_summary">Set Hover notification\'s title text color</string>
+    <string name="notification_text_color">Text color</string>
+    <string name="notification_text_color_summary">Set Hover notification\'s text color</string>
+    <string name="notification_image_color">Image color</string>
+    <string name="notification_image_color_summary">Set Hover notification\'s image color</string>
+    <string name="image_background_transparency">Image background</string>
+    <string name="image_background_transparency_summary">
+        Set Hover notification\'s image black background transparency
+        \nUse a value between 0 (transparent) and 255 (opaque)</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>

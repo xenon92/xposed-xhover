@@ -57,6 +57,11 @@ public class MainActivity extends PreferenceActivity {
     public static final String PREF_LOCKSCREEN_BEHAVIOR = "lockscreen_behavior";
     public static final String PREF_HIDE_NON_CLEARABLE = "hide_non_clearable";
     public static final String PREF_HIDE_LOW_PRIORITY = "hide_low_priority";
+    public static final String PREF_NOTIFICATION_BACKGROUND_COLOR_PICKER = "notification_background_color_picker";
+    public static final String PREF_NOTIFICATION_TITLE_COLOR_PICKER = "notification_title_color_picker";
+    public static final String PREF_NOTIFICATION_TEXT_COLOR_PICKER = "notification_text_color_picker";
+    public static final String PREF_NOTIFICATION_IMAGE_COLOR_PICKER = "notification_image_color_picker";
+    public static final String PREF_NOTIFICATION_IMAGE_BACKGROUND_TRANSPARENCY = "image_background_transparency";
     private static final String PREF_ABOUT = "about_preference";
     private static final String PREF_APPLY = "apply_preference";
     private static final String PREF_CHANGELOG = "changelog_preference";

@@ -24,11 +24,22 @@ package com.shubhangrathore.xposed.xhover;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
+
+import java.util.List;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
@@ -43,8 +54,13 @@ public class XposedHover implements IXposedHookLoadPackage {
     private static final String CLASS_HOVER = "com.android.systemui.statusbar.notification.Hover";
     private static final String CLASS_NOTIFICATION_DATA_ENTRY = "com.android.systemui.statusbar.NotificationData$Entry";
     private static final String CLASS_NOTIFICATION_HELPER = "com.android.systemui.statusbar.notification.NotificationHelper";
+    private static final String CLASS_SIZE_ADAPTIVE_LAYOUT = "com.android.internal.widget.SizeAdaptiveLayout";
     private static final String PACKAGE_XHOVER = XposedHover.class.getPackage().getName();
     private static final String PACKAGE_SYSTEM_UI = "com.android.systemui";
+
+    private static final String FONT_FAMILY_DEFAULT = "sans-serif";
+    private static final String FONT_FAMILY_LIGHT = "sans-serif-light";
+    private static final String FONT_FAMILY_CONDENSED = "sans-serif-condensed";
 
     private static String sCallingMethod = "";
     private static boolean sExpanded;
@@ -56,13 +72,18 @@ public class XposedHover implements IXposedHookLoadPackage {
     private int mLockscreenBehavior;
     private boolean mHideNonClearable;
     private boolean mHideLowPriority;
+    private String mBackgroundColor;
+    private String mTitleColor;
+    private String mTextColor;
+    private String mImageColor;
+    private int mImageBackgroundTransparency;
 
     private KeyguardManager mKeyguardManager;
     private Context mContext;
     private StatusBarNotification mStatusBarNotification;
 
     @Override
-    public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
+    public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         if (!loadPackageParam.packageName.equals(PACKAGE_SYSTEM_UI)) {
             return;
         }
@@ -88,9 +109,27 @@ public class XposedHover implements IXposedHookLoadPackage {
         mHideNonClearable = mXSharedPreferences.getBoolean(MainActivity.PREF_HIDE_NON_CLEARABLE, false);
         mHideLowPriority = mXSharedPreferences.getBoolean(MainActivity.PREF_HIDE_LOW_PRIORITY, false);
 
+        mBackgroundColor = ColorPickerPreference.convertToARGB(mXSharedPreferences
+                .getInt(MainActivity.PREF_NOTIFICATION_BACKGROUND_COLOR_PICKER, 1));
+
+        mTitleColor = ColorPickerPreference.convertToARGB(mXSharedPreferences
+                .getInt(MainActivity.PREF_NOTIFICATION_TITLE_COLOR_PICKER, 1));
+
+        mTextColor = ColorPickerPreference.convertToARGB(mXSharedPreferences
+                .getInt(MainActivity.PREF_NOTIFICATION_TEXT_COLOR_PICKER, 1));
+
+        mImageColor = ColorPickerPreference.convertToARGB(mXSharedPreferences
+                .getInt(MainActivity.PREF_NOTIFICATION_IMAGE_COLOR_PICKER, 1));
+
+        //TODO: Convert transparency into SeekBar sliders
+        mImageBackgroundTransparency =
+                Integer.parseInt(mXSharedPreferences
+                        .getString(MainActivity.PREF_NOTIFICATION_IMAGE_BACKGROUND_TRANSPARENCY, "175"));
+
         final Class<?> mHoverClass = XposedHelpers.findClass(CLASS_HOVER, loadPackageParam.classLoader);
         final Class<?> mNotificationDataEntryClass = XposedHelpers.findClass(CLASS_NOTIFICATION_DATA_ENTRY, loadPackageParam.classLoader);
         final Class<?> mNotificationHelperClass = XposedHelpers.findClass(CLASS_NOTIFICATION_HELPER, loadPackageParam.classLoader);
+        final Class<?> mSizeAdaptiveLayoutClass = XposedHelpers.findClass(CLASS_SIZE_ADAPTIVE_LAYOUT, loadPackageParam.classLoader);
 
 
         // Hooking method startMicroHideCountdown() that calls method startHideCountdown(int)
@@ -324,6 +363,84 @@ public class XposedHover implements IXposedHookLoadPackage {
                         param.setResult(sCurrentNotificationPackageName);
                     }
                 }
+            }
+        });
+
+
+        // Hook method applyStyle to apply notification style to Hover notification view
+        XposedHelpers.findAndHookMethod(mNotificationHelperClass, "applyStyle", mSizeAdaptiveLayoutClass, int.class, new XC_MethodReplacement() {
+            @Override
+            protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+                boolean forHover = ((Integer) methodHookParam.args[1] == 0);
+                ViewGroup notificationView = (ViewGroup) methodHookParam.args[0];
+                if (notificationView.getBackground() == null) {
+                    // if the notification has no background, use custom notification background
+                    Log.i(TAG, "Set background color: " + mBackgroundColor);
+                    notificationView.setBackgroundColor(Color.parseColor(mBackgroundColor));
+                }
+                // This deals with the alpha of the background
+                // of the notification text area (title + message)
+                // Text will stay opaque, only the background will be affected
+                // Keeping this completely opaque as the transparency can be configured
+                // through background color picker preference
+                XposedHelpers.callMethod(methodHookParam.thisObject, "setViewBackgroundAlpha",
+                        notificationView, forHover ? 255 : 255);
+
+                List<View> subViews = (List) XposedHelpers.callMethod(methodHookParam.thisObject,
+                        "getAllViewsInLayout", notificationView);
+                for (View v : subViews) {
+                    if (v instanceof ViewGroup) { // apply hover alpha to the view group
+                        // Gives blackish overlay on Hover notification view
+                        // Blackish overlay is disabled for now
+                        XposedHelpers.callMethod(methodHookParam.thisObject, "setViewBackgroundAlpha",
+                                v, forHover ? 0 : 255);
+                    } else if (v instanceof ImageView) { // remove image background
+                        // Sets the alpha of the background of the image on
+                        // the left side - the notification icon background
+                        if (forHover) {
+                            Log.i(TAG, "Set notification image color: " + mImageColor);
+                            ((ImageView) v).setColorFilter(Color.parseColor(mImageColor));
+                        } else {
+                            // Reset the image color filter to white for notification view
+                            // in notification drawer
+                            Log.i(TAG, "Reset notification image color to WHITE");
+                            ((ImageView) v).setColorFilter(Color.WHITE);
+                        }
+                        Log.i(TAG, "Set image black background transparency: " + mImageBackgroundTransparency);
+                        XposedHelpers.callMethod(methodHookParam.thisObject,
+                                "setViewBackgroundAlpha", v,
+                                forHover ? mImageBackgroundTransparency : 255);
+                    } else if (v instanceof TextView) { // set font family
+                        boolean title = v.getId() == android.R.id.title;
+                        TextView text = ((TextView) v);
+                        text.setTypeface(Typeface.create(
+                                forHover ? FONT_FAMILY_CONDENSED :
+                                        (title ? FONT_FAMILY_LIGHT : FONT_FAMILY_DEFAULT),
+                                title ? Typeface.BOLD : Typeface.NORMAL));
+                        if (forHover) {
+                            if (title) {
+                                // Set title color
+                                Log.i(TAG, "Set title color: " + mTitleColor);
+                                text.setTextColor(Color.parseColor(mTitleColor));
+                            } else {
+                                // Set notification text color
+                                Log.i(TAG, "Set text color: " + mTextColor);
+                                text.setTextColor(Color.parseColor(mTextColor));
+                            }
+                        } else {
+                            // Reset the text colors to stock android notification colors
+                            // for notification view in notification drawer
+                            Log.i(TAG, "Reset title and text colors to stock android values");
+                            if (title) {
+                                text.setTextColor(Color.WHITE);
+                            } else {
+                                // TODO: Set correct value. This is a random approx value.
+                                text.setTextColor(Color.parseColor("#FFCCCCCC"));
+                            }
+                        }
+                    }
+                }
+                return null;
             }
         });
     }
