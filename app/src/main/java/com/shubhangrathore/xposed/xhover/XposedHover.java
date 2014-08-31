@@ -100,7 +100,7 @@ public class XposedHover implements IXposedHookLoadPackage {
 
         mLongFadeOutDelay =
                 Integer.parseInt(mXSharedPreferences
-                        .getString(MainActivity.PREF_LONG_FADE_OUT_DELAY, "2500"));
+                        .getString(MainActivity.PREF_LONG_FADE_OUT_DELAY, "5000"));
 
         mLockscreenBehavior =
                 Integer.parseInt(mXSharedPreferences
