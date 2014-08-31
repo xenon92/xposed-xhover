@@ -434,8 +434,7 @@ public class XposedHover implements IXposedHookLoadPackage {
                             if (title) {
                                 text.setTextColor(Color.WHITE);
                             } else {
-                                // TODO: Set correct value. This is a random approx value.
-                                text.setTextColor(Color.parseColor("#FFCCCCCC"));
+                                text.setTextColor(Color.parseColor("#FFAAAAAA"));
                             }
                         }
                     }
