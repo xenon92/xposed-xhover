@@ -117,12 +117,6 @@
         android:summary="@string/notification_text_color_summary"
         android:title="@string/notification_text_color" />
 
-    <!-- Notification image color -->
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
-        android:key="notification_image_color_picker"
-        android:summary="@string/notification_image_color_summary"
-        android:title="@string/notification_image_color" />
-
     <!-- Notification image black background transparency -->
     <EditTextPreference
         android:defaultValue="175"

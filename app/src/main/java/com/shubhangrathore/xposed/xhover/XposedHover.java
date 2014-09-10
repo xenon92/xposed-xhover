@@ -118,9 +118,6 @@ public class XposedHover implements IXposedHookLoadPackage {
         mTextColor = ColorPickerPreference.convertToARGB(mXSharedPreferences
                 .getInt(MainActivity.PREF_NOTIFICATION_TEXT_COLOR_PICKER, 1));
 
-        mImageColor = ColorPickerPreference.convertToARGB(mXSharedPreferences
-                .getInt(MainActivity.PREF_NOTIFICATION_IMAGE_COLOR_PICKER, 1));
-
         //TODO: Convert transparency into SeekBar sliders
         mImageBackgroundTransparency =
                 Integer.parseInt(mXSharedPreferences
@@ -397,15 +394,6 @@ public class XposedHover implements IXposedHookLoadPackage {
                     } else if (v instanceof ImageView) { // remove image background
                         // Sets the alpha of the background of the image on
                         // the left side - the notification icon background
-                        if (forHover) {
-                            Log.i(TAG, "Set notification image color: " + mImageColor);
-                            ((ImageView) v).setColorFilter(Color.parseColor(mImageColor));
-                        } else {
-                            // Reset the image color filter to white for notification view
-                            // in notification drawer
-                            Log.i(TAG, "Reset notification image color to WHITE");
-                            ((ImageView) v).setColorFilter(Color.WHITE);
-                        }
                         Log.i(TAG, "Set image black background transparency: " + mImageBackgroundTransparency);
                         XposedHelpers.callMethod(methodHookParam.thisObject,
                                 "setViewBackgroundAlpha", v,

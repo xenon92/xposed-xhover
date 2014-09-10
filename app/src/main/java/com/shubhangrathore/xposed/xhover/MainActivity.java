@@ -60,7 +60,6 @@ public class MainActivity extends PreferenceActivity {
     public static final String PREF_NOTIFICATION_BACKGROUND_COLOR_PICKER = "notification_background_color_picker";
     public static final String PREF_NOTIFICATION_TITLE_COLOR_PICKER = "notification_title_color_picker";
     public static final String PREF_NOTIFICATION_TEXT_COLOR_PICKER = "notification_text_color_picker";
-    public static final String PREF_NOTIFICATION_IMAGE_COLOR_PICKER = "notification_image_color_picker";
     public static final String PREF_NOTIFICATION_IMAGE_BACKGROUND_TRANSPARENCY = "image_background_transparency";
     private static final String PREF_ABOUT = "about_preference";
     private static final String PREF_APPLY = "apply_preference";

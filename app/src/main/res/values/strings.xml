@@ -88,7 +88,7 @@
     <string name="notification_image_color_summary">Set Hover notification\'s image color</string>
     <string name="image_background_transparency">Image background</string>
     <string name="image_background_transparency_summary">
-        Set Hover notification\'s image black background transparency
+        Set Hover notification\'s image background transparency
         \nUse a value between 0 (transparent) and 255 (opaque)</string>
 
     <string name="yes">Yes</string>
