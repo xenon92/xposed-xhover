@@ -7,6 +7,11 @@ Changelog
 **Read more about xHover on my [blog](http://blog.shubhangrathore.com/) [post](http://blog.shubhangrathore.com/xhover/)**
 
 
+####v1.4
+- Fix solid color overlay on notification icon
+
+
+
 ####v1.3
 - Add option to set a custom Hover notification background color
 - Add option to set a custom Hover notification title color
