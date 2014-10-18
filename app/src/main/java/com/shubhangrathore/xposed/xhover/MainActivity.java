@@ -57,6 +57,7 @@ public class MainActivity extends PreferenceActivity {
     public static final String PREF_LOCKSCREEN_BEHAVIOR = "lockscreen_behavior";
     public static final String PREF_HIDE_NON_CLEARABLE = "hide_non_clearable";
     public static final String PREF_HIDE_LOW_PRIORITY = "hide_low_priority";
+    public static final String PREF_ALLOW_CUSTOM_COLORS = "allow_custom_colors";
     public static final String PREF_NOTIFICATION_BACKGROUND_COLOR_PICKER = "notification_background_color_picker";
     public static final String PREF_NOTIFICATION_TITLE_COLOR_PICKER = "notification_title_color_picker";
     public static final String PREF_NOTIFICATION_TEXT_COLOR_PICKER = "notification_text_color_picker";
@@ -83,6 +84,7 @@ public class MainActivity extends PreferenceActivity {
     private ListPreference mLockscreenBehavior;
     private CheckBoxPreference mHideNonClearable;
     private CheckBoxPreference mHideLowPriority;
+    private CheckBoxPreference mAllowCustomColors;
     private Preference mAbout;
     private Preference mApply;
     private Preference mChangelog;
@@ -124,6 +126,8 @@ public class MainActivity extends PreferenceActivity {
 
         mVersion = findPreference(PREF_VERSION);
         setVersionNameInGui();
+
+        mAllowCustomColors = (CheckBoxPreference) findPreference(PREF_ALLOW_CUSTOM_COLORS);
 
         mAbout = findPreference(PREF_ABOUT);
         mApply = findPreference(PREF_APPLY);
@@ -186,6 +190,7 @@ public class MainActivity extends PreferenceActivity {
         mShortFadeOutDelay.setValue("2500");
         mMicroFadeOutDelay.setValue("1250");
         mLockscreenBehavior.setValue("1");
+        mAllowCustomColors.setChecked(false);;
         mHideNonClearable.setChecked(false);
         mHideLowPriority.setChecked(false);
         Toast.makeText(getApplicationContext(),

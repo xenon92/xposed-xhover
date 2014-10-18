@@ -78,6 +78,8 @@
     <string name="hide_low_priority">Hide low-priority</string>
     <string name="hide_low_priority_summary">
         Prevent low-priority notifications from showing up in Hover (such as those from Google Now)</string>
+    <string name="custom_colors">Custom colors</string>
+    <string name="custom_colors_summary">Customize Hover notifications with custom colors</string>
     <string name="notification_background_color">Background color</string>
     <string name="notification_background_color_summary">Set Hover notification\'s background color</string>
     <string name="notification_title_color">Title color</string>

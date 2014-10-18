@@ -97,22 +97,32 @@
     <!-- Layout -->
     <PreferenceCategory android:title="@string/category_layout" />
 
+    <!-- Custom colors -->
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="allow_custom_colors"
+        android:summary="@string/custom_colors_summary"
+        android:title="@string/custom_colors" />
+
     <!-- Notification background color -->
     <net.margaritov.preference.colorpicker.ColorPickerPreference
         alphaSlider="true"
         android:defaultValue="@color/material_pink"
+        android:dependency="allow_custom_colors"
         android:key="notification_background_color_picker"
         android:summary="@string/notification_background_color_summary"
         android:title="@string/notification_background_color" />
 
     <!-- Notification title color -->
     <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:dependency="allow_custom_colors"
         android:key="notification_title_color_picker"
         android:summary="@string/notification_title_color_summary"
         android:title="@string/notification_title_color" />
 
     <!-- Notification body text color -->
     <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:dependency="allow_custom_colors"
         android:key="notification_text_color_picker"
         android:summary="@string/notification_text_color_summary"
         android:title="@string/notification_text_color" />
@@ -120,6 +130,7 @@
     <!-- Notification image black background transparency -->
     <EditTextPreference
         android:defaultValue="175"
+        android:dependency="allow_custom_colors"
         android:inputType="number"
         android:key="image_background_transparency"
         android:summary="@string/image_background_transparency_summary"
